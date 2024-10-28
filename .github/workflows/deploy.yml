@@ -23,13 +23,15 @@ jobs:
 
       - name: Build Frontend
         run: |
-             cd myapp/frontend &&
+             cd myapp &&
+             cd frontend &&
              npm run build 
             
 
       - name: Build Backend
         run: |
              cd myapp &&
+             cd backend &&
              npm install
 
       - name: Deploy to Server
