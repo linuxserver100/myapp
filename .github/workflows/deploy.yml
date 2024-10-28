@@ -35,7 +35,7 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          ssh ubuntu@54.165.95.45 "
+          ssh -i $SSH_PRIVATE_KEY ubuntu@54.165.95.45 "
             cd /var/www/myapp &&
             rm -rf frontend/build &&
             cp -r myapp/rontend/build /var/www/myapp/frontend &&
