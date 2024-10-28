@@ -29,11 +29,13 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          ssh user@server_ip "
+          ssh ubuntu@54.165.95.45 "
             cd /var/www/myapp &&
             rm -rf frontend/build &&
-            cp -r frontend/build /var/www/myapp/frontend &&
-            pm2 restart backend
+            cp -r myapp/rontend/build /var/www/myapp/frontend &&
+            npm i pm2 -g &&
+            cd backend
+            pm2 start server.js
           "
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
