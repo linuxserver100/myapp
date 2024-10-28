@@ -1,0 +1,39 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Frontend
+        run: npm run build --prefix frontend
+
+      - name: Build Backend
+        run: npm install --prefix backend
+
+      - name: Deploy to Server
+        run: |
+          ssh user@server_ip "
+            cd /var/www/myapp &&
+            rm -rf frontend/build &&
+            cp -r frontend/build /var/www/myapp/frontend &&
+            pm2 restart backend
+          "
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
