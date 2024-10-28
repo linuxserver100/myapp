@@ -24,6 +24,7 @@ jobs:
       - name: Build Frontend
         run: |
              cd frontend &&
+             sudo npm install --save react react-dom react-scripts &&
              sudo npm run build 
             
 
