@@ -41,9 +41,11 @@ jobs:
             chmod 600 private_key
             ssh -o StrictHostKeyChecking=no -i private_key ubuntu@18.204.220.41 "
             cd /var/www/myapp &&
-            rm -rf frontend/build &&
-            cp -r myapp/frontend/build /var/www/myapp/frontend &&
-            npm i pm2 -g &&
+            cd frontend &&
+            sudo npm install --save react react-dom react-scripts &&
+            
+            sudo cp -r myapp/frontend/build /var/www/myapp/frontend &&
+            sudo npm i pm2 -g &&
             cd backend
             pm2 start server.js"
         
