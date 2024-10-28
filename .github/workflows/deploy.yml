@@ -35,13 +35,14 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          ssh -i $SSH_PRIVATE_KEY ubuntu@54.165.95.45 "
+            echo "$SSH_PRIVATE_KEY" > private_key
+            chmod 600 private_key
+            ssh -i private_key ubuntu@54.165.95.45 "
             cd /var/www/myapp &&
             rm -rf frontend/build &&
             cp -r myapp/rontend/build /var/www/myapp/frontend &&
             npm i pm2 -g &&
             cd backend
-            pm2 start server.js
-          "
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            pm2 start server.js"
+        
+  
