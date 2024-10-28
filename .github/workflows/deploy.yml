@@ -40,11 +40,11 @@ jobs:
             echo "$SSH_PRIVATE_KEY" > private_key
             chmod 600 private_key
             ssh -o StrictHostKeyChecking=no -i private_key ubuntu@18.204.220.41 "
+            sudo cp -r myapp/frontend/build /var/www/myapp/frontend &&
             cd /var/www/myapp &&
             cd frontend &&
             sudo npm install --save react react-dom react-scripts &&
             sudo npm run build &&
-            sudo cp -r /frontend/build /var/www/myapp/frontend &&
             sudo npm i pm2 -g &&
             cd .. &&
             cd backend &&
